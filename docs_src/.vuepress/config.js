@@ -15,7 +15,8 @@ module.exports = {
     nav: [],
     sidebar: [
       ["/", "首页"],
-      ["/started/getting-started.md", "指南"],
+      ["/started/getting-started.md", "客户端"],
+      ["/server/server.md", "服务端"],
       ["/update/update.md", "更新说明"],
     ],
   },
