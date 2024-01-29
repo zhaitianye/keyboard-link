@@ -1,0 +1,11 @@
+{
+    "name": "keyboard-link",
+    "npmname": "keyboard-link",
+    "umdname": "keyboard-link",
+    "username": "zhaitianye",
+    "type": "ts",
+    "module": "umd,esm,commonjs",
+    "test": null,
+    "lang": "zh",
+    "version": "0.0.1"
+}
