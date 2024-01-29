@@ -1,0 +1,55 @@
+{
+  "name": "keyboard-link",
+  "version": "0.0.1",
+  "description": "keyboard-link",
+  "main": "dist/index.js",
+  "jsnext:main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "sideEffects": true,
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build:self": "rollup -c config/rollup.config.js",
+    "build:esm": "rollup -c config/rollup.config.esm.js",
+    "build:aio": "rollup -c config/rollup.config.aio.js",
+    "build:aio.min": "cross-env NODE_ENV=production npm run build:aio",
+    "build": "npm run clean && npm run build:self && npm run build:esm && npm run build:aio.min",
+    "docs:dev": "vuepress dev docs_src",
+    "docs:build": "vuepress build docs_src",
+    "pre:release": "npm run docs:build && npm run build"
+  },
+  "author": "zhaitianye",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zhaitianye/keyboard-link.git"
+  },
+  "bugs": {
+    "email": "1048972989@qq.com"
+  },
+  "files": [
+    "/dist"
+  ],
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@js-lib/cli": "^1.6.0",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "cross-env": "5.2.0",
+    "es5-shim": "4.5.10",
+    "eslint": "^5.15.1",
+    "rimraf": "2.6.2",
+    "rollup": "0.57.1",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-node-resolve": "3.0.3",
+    "rollup-plugin-typescript2": "0.18.0",
+    "rollup-plugin-uglify": "1.0.0",
+    "ts-node": "7.0.1",
+    "tslib": "1.9.3",
+    "typescript": "3.3.3333",
+    "vuepress": "^1.9.5"
+  }
+}

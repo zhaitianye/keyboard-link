@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" value="1" />
+    <input type="text" value="2" />
+    <input type="text" value="3" />
+    <input type="text" value="4" />
+    <input type="text" value="5" />
+
+    <script src="../node_modules/es5-shim/es5-shim.js"></script>
+    <script src="../node_modules/es5-shim/es5-sham.js"></script>
+
+    <script src="../dist/index.aio.min.js"></script>
+    <script>
+      new window.keyboardLink({
+        host: "ws:127.0.0.1",
+        port: 8100,
+      });
+    </script>
+  </body>
+</html>

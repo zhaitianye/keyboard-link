@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["DOM", "ScriptHost", "ES2015", "ESNext"],
+    "module": "commonjs",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "removeComments": true,
+    "declaration": true,
+    "newLine": "lf",
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**.d.ts"]
+}
