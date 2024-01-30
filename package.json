@@ -1,6 +1,6 @@
 {
   "name": "keyboard-link",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "keyboard-link",
   "main": "dist/index.js",
   "jsnext:main": "dist/index.esm.js",

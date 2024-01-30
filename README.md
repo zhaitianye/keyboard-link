@@ -1,21 +1,12 @@
 # [keyboard-link](https://github.com/zhaitianye/keyboard-link)
 
-[![version](https://img.shields.io/npm/v/swtcwallet-jssdk.svg)](https://www.npmjs.com/package/swtcwallet-jssdk) [![downloads](https://img.shields.io/npm/dm/swtcwallet-jssdk.svg)](https://www.npmjs.com/package/swtcwallet-jssdk) [![LICENSE](https://img.shields.io/npm/l/swtcwallet-jssdk.svg)](https://github.com/zhaitianye/swtcwallet-jssdk/blob/master/LICENSE) ![repo-types](https://img.shields.io/npm/types/swtcwallet-jssdk.svg) ![repo-size](https://img.shields.io/github/repo-size/zhaitianye/swtcwallet-jssdk) ![minzip](https://img.shields.io/bundlephobia/minzip/swtcwallet-jssdk)
+[![version](https://img.shields.io/npm/v/keyboard-link.svg)](https://www.npmjs.com/package/keyboard-link) ![downloads](https://img.shields.io/npm/dm/keyboard-link.svg) ![LICENSE](https://img.shields.io/npm/l/keyboard-link.svg) ![repo-types](https://img.shields.io/npm/types/keyboard-link.svg) ![repo-size](https://img.shields.io/github/repo-size/zhaitianye/keyboard-link) ![minzip](https://img.shields.io/bundlephobia/minzip/keyboard-link)
 
 ## 特性
 
 - 简单、两行代码启动
 - 支持 ES6+或 TypeScript 编写源码，编译生成生产代码
 - 多环境支持（支持浏览器原生，支持 AMD，CMD，支持 Webpack，Rollup，fis 等）
-
-## 目录介绍
-
-```
-.
-├── demo 使用demo
-├── dist 编译产出代码
-├── src 源代码目录
-```
 
 ## 安装
 
