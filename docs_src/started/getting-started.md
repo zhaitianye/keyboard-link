@@ -24,7 +24,7 @@ $ pnpm i keyboard-link
 ### esm
 
 ```js
-import keyboardLink from "keyborard-link";
+import keyboardLink from "keyboard-link";
 new keyboardLink({
   host: "ws:xxx.xxx.xxx.xxx",
   port: 0000,
@@ -35,7 +35,7 @@ new keyboardLink({
 
 ```js
 requirejs(
-  ["node_modules/keyborard-link/dist/index.js"],
+  ["node_modules/keyboard-link/dist/index.js"],
   function (keyboardLink) {
     new keyboardLink({
       host: "ws:xxx.xxx.xxx.xxx",
@@ -48,7 +48,7 @@ requirejs(
 ### 浏览器直接使用
 
 ```html
-<script src="node_modules/keyborard-link/dist/index.aio.min.js"></script>
+<script src="node_modules/keyboard-link/dist/index.aio.min.js"></script>
 <script>
   new window.keyboardLink({
     host: "ws:xxx.xxx.xxx.xxx",
