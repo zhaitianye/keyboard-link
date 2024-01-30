@@ -1,5 +1,5 @@
 /*!
- * keyboard-link 0.0.3 (https://github.com/zhaitianye/keyboard-link)
+ * keyboard-link 0.0.4 (https://github.com/zhaitianye/keyboard-link)
  * API https://github.com/zhaitianye/keyboard-link/blob/master/doc/api.md
  * Copyright 2024-2024 zhaitianye. All Rights Reserved
  * Licensed under MIT (https://github.com/zhaitianye/keyboard-link/blob/master/LICENSE)
