@@ -3,12 +3,18 @@ export default class KeyboardLink {
     private host;
     private port;
     private nowElement;
-    constructor({ host, port }: {
+    private useTimer;
+    private timer;
+    private timerCache;
+    constructor({ host, port, useTimer, }: {
         host: string;
         port: number;
+        useTimer?: boolean;
     });
     init: () => Promise<void>;
     private inputChange;
+    private sendTimerValue;
+    private handleClearTimer;
     private focusInChange;
     private focusOutChange;
 }

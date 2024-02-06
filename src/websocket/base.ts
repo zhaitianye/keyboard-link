@@ -34,7 +34,7 @@ export default class WebSocketBase {
     }
     this.ws = new WebSocket(this.url);
     this.ws.onopen = () => {
-      console.log("ws is connect");
+      console.log("keyboard-link is connect");
       this.isConnect = true;
     };
 

@@ -1,5 +1,5 @@
 /*!
- * keyboard-link 0.0.4 (https://github.com/zhaitianye/keyboard-link)
+ * keyboard-link 0.2.0 (https://github.com/zhaitianye/keyboard-link)
  * API https://github.com/zhaitianye/keyboard-link/blob/master/doc/api.md
  * Copyright 2024-2024 zhaitianye. All Rights Reserved
  * Licensed under MIT (https://github.com/zhaitianye/keyboard-link/blob/master/LICENSE)
@@ -81,7 +81,7 @@ var WebSocketBase = (function () {
             }
             _this.ws = new WebSocket(_this.url);
             _this.ws.onopen = function () {
-                console.log("ws is connect");
+                console.log("keyboard-link is connect");
                 _this.isConnect = true;
             };
             _this.ws.onmessage = function (data) {
@@ -190,7 +190,7 @@ var WebSocketHandler = (function (_super) {
 
 var KeyboardLink = (function () {
     function KeyboardLink(_a) {
-        var host = _a.host, port = _a.port;
+        var host = _a.host, port = _a.port, _b = _a.useTimer, useTimer = _b === void 0 ? false : _b;
         var _this = this;
         this.init = function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -200,8 +200,36 @@ var KeyboardLink = (function () {
             });
         }); };
         this.inputChange = function (event) {
-            if (_this.ws) {
+            if (!_this.ws ||
+                !_this.nowElement ||
+                !(_this.nowElement instanceof HTMLInputElement)) {
+                _this.handleClearTimer();
+                return;
+            }
+            if (event.target.value !== _this.timerCache) {
+                _this.timerCache = event.target.value;
                 _this.ws.sendActiveInputValue(event.target.value || "");
+                return;
+            }
+        };
+        this.sendTimerValue = function () {
+            if (!_this.ws ||
+                !_this.nowElement ||
+                !(_this.nowElement instanceof HTMLInputElement)) {
+                _this.handleClearTimer();
+                return;
+            }
+            if (_this.nowElement.value !== _this.timerCache) {
+                _this.timerCache = _this.nowElement.value;
+                _this.ws.sendActiveInputValue(_this.nowElement.value || "");
+                return;
+            }
+        };
+        this.handleClearTimer = function () {
+            if (_this.timer) {
+                clearInterval(_this.timer);
+                _this.timer = null;
+                _this.timerCache = null;
             }
         };
         this.focusInChange = function () { return __awaiter(_this, void 0, void 0, function () {
@@ -213,14 +241,18 @@ var KeyboardLink = (function () {
                 }
                 this.nowElement = focusedElement;
                 this.nowElement.addEventListener("input", this.inputChange);
+                if (this.useTimer) {
+                    this.handleClearTimer();
+                    this.timer = setInterval(this.sendTimerValue, 200);
+                }
                 return [2];
             });
         }); };
         this.focusOutChange = function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                this.handleClearTimer();
                 if (this.nowElement) {
                     this.nowElement.removeEventListener("input", this.inputChange);
-                    this.nowElement = null;
                 }
                 return [2];
             });
@@ -234,6 +266,9 @@ var KeyboardLink = (function () {
             host: this.host,
             port: this.port,
         });
+        this.useTimer = useTimer;
+        this.timer = null;
+        this.timerCache = null;
         this.init();
     }
     return KeyboardLink;
