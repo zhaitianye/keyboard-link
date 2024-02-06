@@ -1,4 +1,18 @@
-## :star:v0.0.4
+## :star:v0.2.0
+
+- 移除 `MutationObserver` 和做混合监听
+- 增加可选的定时器监听
+- 更新文档
+
+## :star:v0.1.1
+
+- 修复bug
+
+## v0.1.0
+
+- 增加 `MutationObserver` 和做混合监听
+  
+## v0.0.4
 
 - 文档更新
 

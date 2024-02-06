@@ -30,6 +30,14 @@ $ pnpm i keyboard-link
 
 ## 使用
 
+说明：
+
+| 参数     | 类型     | 说明                                 |
+| -------- | -------- | ------------------------------------ |
+| host     | String   | ws 链接地址                          |
+| port     | Number   | ws 链接端口                          |
+| useTimer | Boolean? | 可选，默认值为 false，是否使用定时器 |
+
 ### esm
 
 ```js
@@ -46,6 +54,7 @@ requirejs(
     new keyboardLink({
       host: "ws:xxx.xxx.xxx.xxx",
       port: 0000,
+      useTimer: true,
     });
   }
 );
@@ -59,6 +68,7 @@ requirejs(
   new window.keyboardLink({
     host: "ws:xxx.xxx.xxx.xxx",
     port: 0000,
+    useTimer: true,
   });
 </script>
 ```
