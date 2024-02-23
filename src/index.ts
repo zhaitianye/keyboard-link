@@ -72,7 +72,7 @@ export default class KeyboardLink {
     if (
       !this.ws ||
       !this.nowElement ||
-      !(this.nowElement instanceof HTMLInputElement)
+      !(this.nowElement instanceof HTMLInputElement || this.nowElement instanceof HTMLTextAreaElement)
     ) {
       this.handleClearTimer();
       return;
@@ -92,7 +92,7 @@ export default class KeyboardLink {
     if (
       !this.ws ||
       !this.nowElement ||
-      !(this.nowElement instanceof HTMLInputElement)
+      !(this.nowElement instanceof HTMLInputElement || this.nowElement instanceof HTMLTextAreaElement)
     ) {
       // 清空定时器返回
       this.handleClearTimer();
