@@ -1,5 +1,5 @@
 /*!
- * keyboard-link 0.2.0 (https://github.com/zhaitianye/keyboard-link)
+ * keyboard-link 0.2.1 (https://github.com/zhaitianye/keyboard-link)
  * API https://github.com/zhaitianye/keyboard-link/blob/master/doc/api.md
  * Copyright 2024-2024 zhaitianye. All Rights Reserved
  * Licensed under MIT (https://github.com/zhaitianye/keyboard-link/blob/master/LICENSE)
@@ -204,7 +204,7 @@ var KeyboardLink = (function () {
         this.inputChange = function (event) {
             if (!_this.ws ||
                 !_this.nowElement ||
-                !(_this.nowElement instanceof HTMLInputElement)) {
+                !(_this.nowElement instanceof HTMLInputElement || _this.nowElement instanceof HTMLTextAreaElement)) {
                 _this.handleClearTimer();
                 return;
             }
@@ -217,7 +217,7 @@ var KeyboardLink = (function () {
         this.sendTimerValue = function () {
             if (!_this.ws ||
                 !_this.nowElement ||
-                !(_this.nowElement instanceof HTMLInputElement)) {
+                !(_this.nowElement instanceof HTMLInputElement || _this.nowElement instanceof HTMLTextAreaElement)) {
                 _this.handleClearTimer();
                 return;
             }

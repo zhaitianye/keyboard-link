@@ -1,4 +1,9 @@
-## :star:v0.2.0
+## :star:v0.2.1
+
+- 增加对 `TextArea` 输入框的支持
+
+
+## v0.2.0
 
 - 移除 `MutationObserver` 和做混合监听
 - 增加可选的定时器监听
