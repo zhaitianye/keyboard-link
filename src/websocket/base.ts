@@ -133,4 +133,44 @@ export default class WebSocketBase {
     const id = `${timestamp}-${random}`;
     return id;
   };
+
+  // 移除头部换行符
+  private utilsRemoveLeadingNewlines = (str: string): string => {
+    return str.replace(/^\n+/, "");
+  };
+
+  // 移除尾部换行符
+  private utilsRemoveTrailingNewlines = (str: string): string => {
+    return str.replace(/\n+$/, "");
+  };
+
+  // 处理待发送的数据
+  public utilsPreconditioningSendData = ({
+    str,
+    isRemoveHeaderNewlinesCharacter,
+    isRemoveTailNewlinesCharacter,
+  }: {
+    str: string | undefined;
+    isRemoveHeaderNewlinesCharacter: boolean;
+    isRemoveTailNewlinesCharacter: boolean;
+  }): string => {
+    // 空值转换
+    let tempStr = "";
+    // 判断传入的值是否有效
+    if (typeof str === "number" || typeof str === "string") {
+      tempStr = str;
+    }
+
+    // 移除头部换行符
+    if (isRemoveHeaderNewlinesCharacter) {
+      tempStr = this.utilsRemoveLeadingNewlines(tempStr);
+    }
+
+    // 移除尾部换行符
+    if (isRemoveTailNewlinesCharacter) {
+      tempStr = this.utilsRemoveTrailingNewlines(tempStr);
+    }
+
+    return tempStr;
+  };
 }

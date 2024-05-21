@@ -27,4 +27,11 @@ export default class WebSocketBase {
         payload?: any;
     }) => void;
     private utilsGenerateId;
+    private utilsRemoveLeadingNewlines;
+    private utilsRemoveTrailingNewlines;
+    utilsPreconditioningSendData: ({ str, isRemoveHeaderNewlinesCharacter, isRemoveTailNewlinesCharacter, }: {
+        str: string;
+        isRemoveHeaderNewlinesCharacter: boolean;
+        isRemoveTailNewlinesCharacter: boolean;
+    }) => string;
 }

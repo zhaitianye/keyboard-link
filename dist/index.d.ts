@@ -6,10 +6,14 @@ export default class KeyboardLink {
     private useTimer;
     private timer;
     private timerCache;
-    constructor({ host, port, useTimer, }: {
+    private isRemoveHeaderNewlinesCharacter;
+    private isRemoveTailNewlinesCharacter;
+    constructor({ host, port, useTimer, isRemoveHeaderNewlinesCharacter, isRemoveTailNewlinesCharacter, }: {
         host: string;
         port: number;
         useTimer?: boolean;
+        isRemoveHeaderNewlinesCharacter?: boolean;
+        isRemoveTailNewlinesCharacter?: boolean;
     });
     init: () => Promise<void>;
     private inputChange;

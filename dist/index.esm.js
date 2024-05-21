@@ -1,5 +1,5 @@
 /*!
- * keyboard-link 0.2.2 (https://github.com/zhaitianye/keyboard-link)
+ * keyboard-link 0.2.3 (https://github.com/zhaitianye/keyboard-link)
  * API https://github.com/zhaitianye/keyboard-link/blob/master/doc/api.md
  * Copyright 2024-2024 zhaitianye. All Rights Reserved
  * Licensed under MIT (https://github.com/zhaitianye/keyboard-link/blob/master/LICENSE)
@@ -143,6 +143,26 @@ var WebSocketBase = (function () {
             var id = timestamp + "-" + random;
             return id;
         };
+        this.utilsRemoveLeadingNewlines = function (str) {
+            return str.replace(/^\n+/, "");
+        };
+        this.utilsRemoveTrailingNewlines = function (str) {
+            return str.replace(/\n+$/, "");
+        };
+        this.utilsPreconditioningSendData = function (_a) {
+            var str = _a.str, isRemoveHeaderNewlinesCharacter = _a.isRemoveHeaderNewlinesCharacter, isRemoveTailNewlinesCharacter = _a.isRemoveTailNewlinesCharacter;
+            var tempStr = "";
+            if (typeof str === "number" || typeof str === "string") {
+                tempStr = str;
+            }
+            if (isRemoveHeaderNewlinesCharacter) {
+                tempStr = _this.utilsRemoveLeadingNewlines(tempStr);
+            }
+            if (isRemoveTailNewlinesCharacter) {
+                tempStr = _this.utilsRemoveTrailingNewlines(tempStr);
+            }
+            return tempStr;
+        };
         this.ws = null;
         this.isConnect = false;
         this.url = host + ":" + port;
@@ -190,7 +210,7 @@ var WebSocketHandler = (function (_super) {
 
 var KeyboardLink = (function () {
     function KeyboardLink(_a) {
-        var host = _a.host, port = _a.port, _b = _a.useTimer, useTimer = _b === void 0 ? false : _b;
+        var host = _a.host, port = _a.port, _b = _a.useTimer, useTimer = _b === void 0 ? false : _b, _c = _a.isRemoveHeaderNewlinesCharacter, isRemoveHeaderNewlinesCharacter = _c === void 0 ? false : _c, _d = _a.isRemoveTailNewlinesCharacter, isRemoveTailNewlinesCharacter = _d === void 0 ? false : _d;
         var _this = this;
         this.init = function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -202,26 +222,38 @@ var KeyboardLink = (function () {
         this.inputChange = function (event) {
             if (!_this.ws ||
                 !_this.nowElement ||
-                !(_this.nowElement instanceof HTMLInputElement || _this.nowElement instanceof HTMLTextAreaElement)) {
+                !(_this.nowElement instanceof HTMLInputElement ||
+                    _this.nowElement instanceof HTMLTextAreaElement)) {
                 _this.handleClearTimer();
                 return;
             }
             if (event.target.value !== _this.timerCache) {
                 _this.timerCache = event.target.value;
-                _this.ws.sendActiveInputValue(event.target.value || "");
+                var needToSend = _this.ws.utilsPreconditioningSendData({
+                    str: event.target.value,
+                    isRemoveHeaderNewlinesCharacter: _this.isRemoveHeaderNewlinesCharacter,
+                    isRemoveTailNewlinesCharacter: _this.isRemoveTailNewlinesCharacter,
+                });
+                _this.ws.sendActiveInputValue(needToSend);
                 return;
             }
         };
         this.sendTimerValue = function () {
             if (!_this.ws ||
                 !_this.nowElement ||
-                !(_this.nowElement instanceof HTMLInputElement || _this.nowElement instanceof HTMLTextAreaElement)) {
+                !(_this.nowElement instanceof HTMLInputElement ||
+                    _this.nowElement instanceof HTMLTextAreaElement)) {
                 _this.handleClearTimer();
                 return;
             }
             if (_this.nowElement.value !== _this.timerCache) {
                 _this.timerCache = _this.nowElement.value;
-                _this.ws.sendActiveInputValue(_this.nowElement.value || "");
+                var needToSend = _this.ws.utilsPreconditioningSendData({
+                    str: _this.nowElement.value,
+                    isRemoveHeaderNewlinesCharacter: _this.isRemoveHeaderNewlinesCharacter,
+                    isRemoveTailNewlinesCharacter: _this.isRemoveTailNewlinesCharacter,
+                });
+                _this.ws.sendActiveInputValue(needToSend);
                 return;
             }
         };
@@ -233,11 +265,16 @@ var KeyboardLink = (function () {
             }
         };
         this.focusInChange = function () { return __awaiter(_this, void 0, void 0, function () {
-            var focusedElement;
+            var focusedElement, needToSend;
             return __generator(this, function (_a) {
                 focusedElement = document.activeElement;
                 if (this.ws) {
-                    this.ws.sendActiveInputValue(focusedElement.value || "");
+                    needToSend = this.ws.utilsPreconditioningSendData({
+                        str: focusedElement.value,
+                        isRemoveHeaderNewlinesCharacter: this.isRemoveHeaderNewlinesCharacter,
+                        isRemoveTailNewlinesCharacter: this.isRemoveTailNewlinesCharacter,
+                    });
+                    this.ws.sendActiveInputValue(needToSend);
                 }
                 this.nowElement = focusedElement;
                 this.nowElement.addEventListener("input", this.inputChange);
@@ -269,6 +306,8 @@ var KeyboardLink = (function () {
         this.useTimer = useTimer;
         this.timer = null;
         this.timerCache = null;
+        this.isRemoveHeaderNewlinesCharacter = isRemoveHeaderNewlinesCharacter;
+        this.isRemoveTailNewlinesCharacter = isRemoveTailNewlinesCharacter;
         this.init();
     }
     return KeyboardLink;

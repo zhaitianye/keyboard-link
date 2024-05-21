@@ -38,11 +38,14 @@ $ pnpm i keyboard-link
 
 说明：
 
-| 参数     | 类型     | 说明                                 |
-| -------- | -------- | ------------------------------------ |
-| host     | String   | ws 链接地址                          |
-| port     | Number   | ws 链接端口                          |
-| useTimer | Boolean? | 可选，默认值为 false，是否使用定时器 |
+| 参数                            | 类型     | 说明                                     |
+| ------------------------------- | -------- | ---------------------------------------- |
+| host                            | String   | ws 链接地址                              |
+| port                            | Number   | ws 链接端口                              |
+| useTimer                        | Boolean? | 可选，默认值为 false，是否使用定时器     |
+| useTimer                        | Boolean? | 可选，默认值为 false，是否使用定时器     |
+| isRemoveHeaderNewlinesCharacter | Boolean? | 可选，默认值为 false，是否移除头部换行符 |
+| isRemoveTailNewlinesCharacter   | Boolean? | 可选，默认值为 false，是否移除尾部换行符 |
 
 ### esm
 
