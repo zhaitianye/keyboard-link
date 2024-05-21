@@ -29,15 +29,28 @@ export default class KeyboardLink {
   // 使用cache
   private timerCache: any;
 
+  // 是否去除头部换行符
+  private isRemoveHeaderNewlinesCharacter: boolean;
+  private isRemoveTailNewlinesCharacter: boolean;
+
   // 构造函数
   public constructor({
     host,
     port,
     useTimer = false,
+    isRemoveHeaderNewlinesCharacter = false,
+    isRemoveTailNewlinesCharacter = false,
   }: {
+    // 链接的服务器地址
     host: string;
+    // 链接的服务器端口
     port: number;
+    // 可选参数：是否使用定时器，默认false
     useTimer?: boolean;
+    // 可选参数：是否去除头部换行符，默认false
+    isRemoveHeaderNewlinesCharacter?: boolean;
+    // 可选参数：是否去除尾部换行符，默认false
+    isRemoveTailNewlinesCharacter?: boolean;
   }) {
     // 传入值检测
     if (!host || !port) {
@@ -54,6 +67,10 @@ export default class KeyboardLink {
     this.useTimer = useTimer;
     this.timer = null;
     this.timerCache = null;
+
+    // 初始化参数
+    this.isRemoveHeaderNewlinesCharacter = isRemoveHeaderNewlinesCharacter;
+    this.isRemoveTailNewlinesCharacter = isRemoveTailNewlinesCharacter;
 
     // 初始化
     this.init();
@@ -72,7 +89,10 @@ export default class KeyboardLink {
     if (
       !this.ws ||
       !this.nowElement ||
-      !(this.nowElement instanceof HTMLInputElement || this.nowElement instanceof HTMLTextAreaElement)
+      !(
+        this.nowElement instanceof HTMLInputElement ||
+        this.nowElement instanceof HTMLTextAreaElement
+      )
     ) {
       this.handleClearTimer();
       return;
@@ -81,7 +101,12 @@ export default class KeyboardLink {
     // 重复性校验，发送
     if (event.target.value !== this.timerCache) {
       this.timerCache = event.target.value;
-      this.ws.sendActiveInputValue(event.target.value || "");
+      const needToSend = this.ws.utilsPreconditioningSendData({
+        str: event.target.value,
+        isRemoveHeaderNewlinesCharacter: this.isRemoveHeaderNewlinesCharacter,
+        isRemoveTailNewlinesCharacter: this.isRemoveTailNewlinesCharacter,
+      });
+      this.ws.sendActiveInputValue(needToSend);
       return;
     }
   };
@@ -92,7 +117,10 @@ export default class KeyboardLink {
     if (
       !this.ws ||
       !this.nowElement ||
-      !(this.nowElement instanceof HTMLInputElement || this.nowElement instanceof HTMLTextAreaElement)
+      !(
+        this.nowElement instanceof HTMLInputElement ||
+        this.nowElement instanceof HTMLTextAreaElement
+      )
     ) {
       // 清空定时器返回
       this.handleClearTimer();
@@ -102,7 +130,12 @@ export default class KeyboardLink {
     // 重复性校验，发送
     if (this.nowElement.value !== this.timerCache) {
       this.timerCache = this.nowElement.value;
-      this.ws.sendActiveInputValue(this.nowElement.value || "");
+      const needToSend = this.ws.utilsPreconditioningSendData({
+        str: this.nowElement.value,
+        isRemoveHeaderNewlinesCharacter: this.isRemoveHeaderNewlinesCharacter,
+        isRemoveTailNewlinesCharacter: this.isRemoveTailNewlinesCharacter,
+      });
+      this.ws.sendActiveInputValue(needToSend);
       return;
     }
   };
@@ -122,7 +155,12 @@ export default class KeyboardLink {
 
     // 如果ws存在，进入即发送值
     if (this.ws) {
-      this.ws.sendActiveInputValue(focusedElement.value || "");
+      const needToSend = this.ws.utilsPreconditioningSendData({
+        str: focusedElement.value,
+        isRemoveHeaderNewlinesCharacter: this.isRemoveHeaderNewlinesCharacter,
+        isRemoveTailNewlinesCharacter: this.isRemoveTailNewlinesCharacter,
+      });
+      this.ws.sendActiveInputValue(needToSend);
     }
 
     // 挂载变动监听
