@@ -59,6 +59,7 @@ export default class KeyboardLink {
     this.init();
   }
 
+
   // 初始化
   public init = async () => {
     // 添加监听活跃dom的变化
